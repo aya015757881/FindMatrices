@@ -5,11 +5,11 @@ import java.util.Scanner;
 
 public class FindMatrix {
 	
-	int count;//¼ÇÂ¼Âú×ãÒªÇóµÄ¾ØÕóµÄ¸öÊı
-	int rowCount, columnCount;//2¸öÕûĞÍ±äÁ¿£¬·Ö±ğÓÃÀ´±£´æ¾ØÕóµÄĞĞÊıÓëÁĞÊı
-	int[] rowSums, columnSums;//2¸öÒ»Î¬Êı×é£¬·Ö±ğÓÃÀ´±£´æ¾ØÕóµÄĞĞºÍÓëÁĞºÍ
-	int[][] matrix;//1¸ö¶şÎ¬Êı×é£¬ºÍ¾ØÕó¶ÔÓ¦
-	int[][] positions;//1¸ö¶şÎ¬Êı×é£¬ÓÃÀ´±£´æ¾ØÕóÖĞ"1"µÄÏÂ±ê
+	int count;//è®°å½•æ»¡è¶³è¦æ±‚çš„çŸ©é˜µçš„ä¸ªæ•°
+	int rowCount, columnCount;//2ä¸ªæ•´å‹å˜é‡ï¼Œåˆ†åˆ«ç”¨æ¥ä¿å­˜çŸ©é˜µçš„è¡Œæ•°ä¸åˆ—æ•°
+	int[] rowSums, columnSums;//2ä¸ªä¸€ç»´æ•°ç»„ï¼Œåˆ†åˆ«ç”¨æ¥ä¿å­˜çŸ©é˜µçš„è¡Œå’Œä¸åˆ—å’Œ
+	int[][] matrix;//1ä¸ªäºŒç»´æ•°ç»„ï¼Œå’ŒçŸ©é˜µå¯¹åº”
+	int[][] positions;//1ä¸ªäºŒç»´æ•°ç»„ï¼Œç”¨æ¥ä¿å­˜çŸ©é˜µä¸­"1"çš„ä¸‹æ ‡
 	
 	Scanner scan = new Scanner(System.in);
 	Random rand = new Random();
@@ -20,7 +20,7 @@ public class FindMatrix {
 	}
 	
 	/*
-	 * ¿ªÊ¼
+	 * å¼€å§‹
 	 */
 	void go(){
 		
@@ -39,33 +39,33 @@ public class FindMatrix {
 	}
 	
 	/*
-	 * Îª¾ØÕóÉè¶¨´óĞ¡
+	 * ä¸ºçŸ©é˜µè®¾å®šå¤§å°
 	 */
 	void setMatrixParameters(){
 		
-		//ÓÃ»§Éè¶¨¾ØÕóµÄĞĞÊı
-		System.out.print("ÇëÊäÈë¾ØÕóµÄĞĞÊı£º");
+		//ç”¨æˆ·è®¾å®šçŸ©é˜µçš„è¡Œæ•°
+		System.out.print("è¯·è¾“å…¥çŸ©é˜µçš„è¡Œæ•°ï¼š");
 		rowCount = scan.nextInt();
 		
-		//ÓÃ»§Éè¶¨¾ØÕóµÄÁĞÊı
-		System.out.print("ÇëÊäÈë¾ØÕóµÄÁĞÊı£º");
+		//ç”¨æˆ·è®¾å®šçŸ©é˜µçš„åˆ—æ•°
+		System.out.print("è¯·è¾“å…¥çŸ©é˜µçš„åˆ—æ•°ï¼š");
 		columnCount = scan.nextInt();
 	}
 	
 	/*
-	 * ÓÃËæ»úÊıÉú³ÉËæ»úµÄĞĞºÍÓëÁĞºÍ
+	 * ç”¨éšæœºæ•°ç”Ÿæˆéšæœºçš„è¡Œå’Œä¸åˆ—å’Œ
 	 */
 	void setRandomTestCase(){
 	
-		//¶¨Òå2¸öÊı×é£¬·Ö±ğÓÃÀ´±£´æĞĞºÍÓëÁĞºÍ
+		//å®šä¹‰2ä¸ªæ•°ç»„ï¼Œåˆ†åˆ«ç”¨æ¥ä¿å­˜è¡Œå’Œä¸åˆ—å’Œ
 		rowSums = new int[rowCount];
 		columnSums = new int[columnCount];
 		
-		//Éú³ÉËæ»úµÄĞĞºÍ
+		//ç”Ÿæˆéšæœºçš„è¡Œå’Œ
 		for(int i = 0; i < rowCount; i++)
 			rowSums[i] = rand.nextInt(columnCount + 1);
 		
-		//Éú³ÉËæ»úµÄÁĞºÍ
+		//ç”Ÿæˆéšæœºçš„åˆ—å’Œ
 		for(int i = 0; i < columnCount; i++)
 			columnSums[i] = rand.nextInt(rowCount + 1);
 		
@@ -74,14 +74,11 @@ public class FindMatrix {
 		for(int i = 0; i < rowCount; i++)
 			positions[i] = new int[rowSums[i]];
 		
-		matrix = new int[rowCount][];
-
-		for(int i = 0; i < rowCount; i++)
-			matrix[i] = new int[columnCount];
+		matrix = new int[rowCount][columnCount];
 	}
 	
 	/*
-	 * °Ñ¾ØÕóÖĞ±»¸³ÖµµÄµ±Ç°ĞĞÇå¿Õ
+	 * æŠŠçŸ©é˜µä¸­è¢«èµ‹å€¼çš„å½“å‰è¡Œæ¸…ç©º
 	 */
 	void clear(int row){
 		
@@ -91,7 +88,7 @@ public class FindMatrix {
 	}
 	
 	/*
-	 * ÓÃ×éºÏÆ÷±éÀúËùÓĞ·ûºÏĞĞºÍÌõ¼şµÄ¾ØÕó
+	 * ç”¨ç»„åˆå™¨éå†æ‰€æœ‰ç¬¦åˆè¡Œå’Œæ¡ä»¶çš„çŸ©é˜µ
 	 */
 	void combine(int row, int index, int start, int end){
 		
@@ -114,7 +111,7 @@ public class FindMatrix {
 	}
 	
 	/*
-	 * ÅĞ¶Ï¸ÃĞĞµÄ×éºÏÇé¿öÊÇ·ñÎ¥·´ÁĞºÍÌõ¼ş
+	 * åˆ¤æ–­è¯¥è¡Œçš„ç»„åˆæƒ…å†µæ˜¯å¦è¿ååˆ—å’Œæ¡ä»¶
 	 */
 	boolean isLegalRow(int row){
 		
@@ -138,11 +135,11 @@ public class FindMatrix {
 	}
 	
 	/*
-	 * ´òÓ¡·ûºÏÌõ¼şµÄ¾ØÕó
+	 * æ‰“å°ç¬¦åˆæ¡ä»¶çš„çŸ©é˜µ
 	 */
 	void printMatrix(){
 		
-		System.out.println( "µÚ" + ++count + "¸ö¾ØÕó£º");
+		System.out.println( "ç¬¬" + ++count + "ä¸ªçŸ©é˜µï¼š");
 		
 		for(int i = 0; i < rowCount; i++){
 			
@@ -156,20 +153,20 @@ public class FindMatrix {
 	}
 
 	/*
-	 * ÏÔÊ¾ĞĞºÍÓëÁĞºÍµÄÌõ¼ş
+	 * æ˜¾ç¤ºè¡Œå’Œä¸åˆ—å’Œçš„æ¡ä»¶
 	 */
 	void printConditions(){
 		 
-		System.out.print("ĞĞºÍ£º");
+		System.out.print("è¡Œå’Œï¼š");
 		for(int a : rowSums)
 			System.out.print(a + " ");
 		System.out.println();
 		
-		System.out.print("ÁĞºÍ£º");
+		System.out.print("åˆ—å’Œï¼š");
 		for(int a : columnSums)
 			System.out.print(a + " ");
 		System.out.println("\n");
 		
-		System.out.println("Âú×ãÉÏÊöÒªÇóµÄ¾ØÕóÒ»¹²ÓĞÒÔÉÏ" + count + "¸ö£¨ĞĞºÍÓëÁĞºÍÊÇËæ»úÉú³ÉµÄÌõ¼ş£©\n\n");
+		System.out.println("æ»¡è¶³ä¸Šè¿°è¦æ±‚çš„çŸ©é˜µä¸€å…±æœ‰ä»¥ä¸Š" + count + "ä¸ªï¼ˆè¡Œå’Œä¸åˆ—å’Œæ˜¯éšæœºç”Ÿæˆçš„æ¡ä»¶ï¼‰\n\n");
 	}
 }
